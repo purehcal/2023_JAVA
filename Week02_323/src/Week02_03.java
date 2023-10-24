@@ -1,9 +1,11 @@
+// Animal 인터페이스 선언
 interface Animal {
     void walk();
     void fly();
     void sing();
 }
 
+// Bird 클래스는 Animal 인터페이스를 구현함
 class Bird implements Animal {
     @Override
     public void walk() {
@@ -22,13 +24,13 @@ class Bird implements Animal {
 }
 
 public class Week02_03 {
+    public static void main(String[] args) {
+        // Bird 클래스의 인스턴스 생성
+        Bird bird = new Bird();
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		 Bird bird = new Bird();
-	        bird.walk();
-	        bird.fly();
-	        bird.sing();
-	}
-
+        // Bird 클래스의 메서드를 호출하여 각 능력을 출력
+        bird.walk();
+        bird.fly();
+        bird.sing();
+    }
 }
