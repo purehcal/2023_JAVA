@@ -28,10 +28,10 @@ public class UserInform {
                 break;
         }
 
-        // Close the PrintWriter after writing data to the file
+        // PrintWriter를 사용하여 파일에 데이터를 쓴 후, PrintWriter를 닫습니다.
         in.close();
 
-        // Now, let's add code to search for a phone number based on the entered number
+        // 이제 파일에서 번호를 기반으로 전화번호를 검색하는 코드를 추가합니다.
         BufferedReader reader = new BufferedReader(new FileReader("user.txt"));
         String line;
         System.out.print("검색할 번호를 입력하세요: ");

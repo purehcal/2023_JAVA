@@ -5,12 +5,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class Test {
+public class No2 {
 
     public static void main(String[] args) throws IOException {
         // 파일 경로 설정
-        File inputFile = new File("C:/JAVA/Week07_323/input.txt");
-        File outputFile = new File("C:/JAVA/Week07_323/output.txt");
+        File inputFile = new File("C:/JAVA/Midterm/obama.txt");
+        File outputFile = new File("C:/JAVA/Midterm/output.txt");
 
         // 문자 카운터 초기화
         char charCounter = 0;
