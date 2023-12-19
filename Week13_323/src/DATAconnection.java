@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DATAconnection {
+    // 데이터베이스 연결을 수행하는 메서드
     public static Connection makeConnection() {
         String url = "jdbc:mysql://localhost:3306/boards";
         String id = "root";
@@ -27,6 +28,8 @@ public class DATAconnection {
 
     public static void main(String[] args) throws SQLException {
         Connection con = makeConnection();
+        
+        // INSERT 구문 실행 예제
         /*try {
             String sql = "INSERT INTO users (userid, username, userpassword, userage, useremail) VALUES (?,?,?,?,?)";
 
@@ -51,46 +54,49 @@ public class DATAconnection {
                 }
             }
         }*/
+        
+        // INSERT 구문 실행 예제 (파일 업로드)
         /*try {
-        	String sql=""+
-        "INSERT INTO boards (btitle, bcontent, bwriter, bdate, bfilename, bfiledata)"+
-        "VALUES (?, ?,?,now(), ?, ?)";
-        	
-        	PreparedStatement pstmt=con.prepareStatement(sql, new String[] {"bno"});
-        	pstmt.setString(1,  "눈오는 날");
-        	pstmt.setString(2,"함박눈이 내려요.");
-        	pstmt.setString(3,  "winter");
-        	pstmt.setString(4, "snowman.jpg");
-        	
-        	try {
-        		pstmt.setBlob(5,  new FileInputStream("snow.jpg"));
-        	}catch(FileNotFoundException e) {
-        		System.out.println("파일을 찾을 수 없습니다.");
-        		e.printStackTrace();
-        	}
-        	
-        	int rows=pstmt.executeUpdate();
-        	System.out.println("저장된 행 수: "+rows);
-        	
-        	
-        	if(rows==1) {
-        		ResultSet rs=pstmt.getGeneratedKeys();
-        		if(rs.next()) {
-        			int bno=rs.getInt(1);
-        			System.out.println("저장된 bno : "+bno);
-        		}
-        		rs.close();
-        	}
-        	pstmt.close();
-        }catch(SQLException e) {
-        	e.printStackTrace();
-        }finally{
-        	if(con!=null) {
-        		try {
-        			con.close();
-        		}catch(SQLException e) {}
-        	}
+            String sql = "INSERT INTO boards (btitle, bcontent, bwriter, bdate, bfilename, bfiledata) " +
+                    "VALUES (?, ?,?,now(), ?, ?)";
+
+            PreparedStatement pstmt = con.prepareStatement(sql, new String[] {"bno"});
+            pstmt.setString(1, "눈오는 날");
+            pstmt.setString(2, "함박눈이 내려요.");
+            pstmt.setString(3, "winter");
+            pstmt.setString(4, "snowman.jpg");
+
+            try {
+                pstmt.setBlob(5, new FileInputStream("snow.jpg"));
+            } catch (FileNotFoundException e) {
+                System.out.println("파일을 찾을 수 없습니다.");
+                e.printStackTrace();
+            }
+
+            int rows = pstmt.executeUpdate();
+            System.out.println("저장된 행 수: " + rows);
+
+            if (rows == 1) {
+                ResultSet rs = pstmt.getGeneratedKeys();
+                if (rs.next()) {
+                    int bno = rs.getInt(1);
+                    System.out.println("저장된 bno : " + bno);
+                }
+                rs.close();
+            }
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                }
+            }
         }*/
+        
+        // UPDATE 구문 실행 예제
         /*try {
             String sql = new StringBuilder()
                     .append("UPDATE boards SET ")
@@ -129,23 +135,25 @@ public class DATAconnection {
                 }
             }
         }*/
+        
+        // DELETE 구문 실행 예제
         try {
-        	String sql="DELETE FROM boards WHERE bwriter=?";
-        	
-        	PreparedStatement pstmt=con.prepareStatement(sql);
-        	pstmt.setString(1, "winter");
-        	
-        	int rows=pstmt.executeUpdate();
-        	
-        	pstmt.close();
-        }catch(SQLException e) {
-        	e.printStackTrace();
-        }finally {
-        	if(con!=null) {
-        		try{
-        			con.close();
-        		}catch(SQLException e) {}
-        	}
+            String sql = "DELETE FROM boards WHERE bwriter=?";
+
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, "winter");
+
+            int rows = pstmt.executeUpdate();
+
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                    con.close();
+                } catch (SQLException e) {}
+            }
         }
     }
 }

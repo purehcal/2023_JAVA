@@ -2,14 +2,14 @@ import java.sql.Date;
 import com.mysql.cj.jdbc.Blob;
 
 public class Board {
-	private int bno;
-	private String btitle;
-	private String bcontent;
-	private String bwriter;
-	private Date bdate;
-	private String bfilename;
-	private Blob bfiledata;
-	
+    private int bno;            // 게시물 번호
+    private String btitle;      // 게시물 제목
+    private String bcontent;    // 게시물 내용
+    private String bwriter;     // 게시물 작성자
+    private Date bdate;          // 게시물 작성일자
+    private String bfilename;   // 첨부 파일 이름
+    private Blob bfiledata;     // 첨부 파일 데이터
+
     // 각 필드에 대한 setter 메서드
     public void setBno(int bno) {this.bno = bno;}
 

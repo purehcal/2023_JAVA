@@ -10,18 +10,18 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-// MessengerA 클래스는 UDP를 이용한 간단한 메신저 프로그램의 일부를 나타냅니다.
-public class MessengerA {
+// MessengerB 클래스는 UDP를 이용한 간단한 메신저 프로그램의 일부를 나타냅니다.
+public class MessengerB {
     protected JTextField textField; // 사용자 입력을 받을 텍스트 필드
     protected JTextArea textArea; // 수신된 메시지를 표시할 텍스트 영역
     DatagramSocket socket; // UDP 소켓
     DatagramPacket packet; // UDP 패킷
     InetAddress address = null; // 상대방 주소
-    final int myPort = 5000; // 수신용 포트 번호
-    final int otherPort = 6000; // 송신용 포트 번호
+    final int myPort = 6000; // 수신용 포트 번호
+    final int otherPort = 5000; // 송신용 포트 번호
 
     // 생성자에서 GUI 프레임을 초기화하고 소켓을 생성합니다.
-    public MessengerA() throws IOException {
+    public MessengerB() throws IOException {
         MyFrame f = new MyFrame();
         address = InetAddress.getByName("127.0.0.1"); // 상대방 주소 설정
         socket = new DatagramSocket(myPort); // UDP 소켓 생성
@@ -35,7 +35,7 @@ public class MessengerA {
                 packet = new DatagramPacket(buf, buf.length);
                 socket.receive(packet); // 패킷을 받음
 
-                // 받은 패킷의 내용을 텍스트 영역에 표시
+                // 받은 패킷의 내용을 텍스트 영역에 표시함
                 textArea.append("RECEIVED: " + new String(buf) + "\n");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -48,7 +48,7 @@ public class MessengerA {
 
         // GUI 프레임 초기화
         public MyFrame() {
-            super("MessengerA");
+            super("MessengerB");
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
             textField = new JTextField(30);
@@ -82,9 +82,9 @@ public class MessengerA {
         }
     }
 
-    // 메인 메서드: MessengerA 객체를 생성하고 수신 처리를 시작합니다.
+    // 메인 메서드: MessengerB 객체를 생성하고 수신 처리를 시작함
     public static void main(String[] args) throws IOException {
-        MessengerA m = new MessengerA();
+        MessengerB m = new MessengerB();
         m.process();
     }
 }

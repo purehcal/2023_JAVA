@@ -12,23 +12,21 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-// JFrame을 상속받은 MyFrame 클래스 정의
-class MyFrame extends JFrame {
-    JTextField id, title, publisher, year, price, search;
-    JButton previousButton, nextButton, insertButton, deleteButton, searchButton, clearButton;
+// JFrame을 상속받은 Notice 클래스 정의
+class Notice extends JFrame {
+    JTextField id, title, p, year, price, author;
+    JButton previousButton, nextButton, insertButton, deleteButton,
+            searchButton, clearButton;
     ResultSet rs;
     Statement stmt;
 
     // 생성자에서 SQLException 처리
-    public MyFrame() throws SQLException {
+    public Notice() throws SQLException {
         super("Database Viewer");
-
         // 데이터베이스 연결을 위한 Connection 객체 생성
         Connection con = makeConnection();
-
         // Scrollable 및 Updatable한 ResultSet을 생성하는 Statement 객체 생성
         stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-
         // "books" 테이블에서 모든 데이터를 가져오는 ResultSet 생성
         rs = stmt.executeQuery("SELECT * FROM books");
 
@@ -43,13 +41,16 @@ class MyFrame extends JFrame {
         add(title = new JTextField());
 
         add(new JLabel("PUBLISHER", JLabel.CENTER));
-        add(publisher = new JTextField());
+        add(p = new JTextField());
+
+        add(new JLabel("YEAR", JLabel.CENTER));
+        add(year = new JTextField());
 
         add(new JLabel("PRICE", JLabel.CENTER));
         add(price = new JTextField());
 
         add(new JLabel("출판사 검색", JLabel.CENTER));
-        add(search = new JTextField());
+        add(author = new JTextField());
 
         // Previous 버튼 및 이벤트 리스너 추가
         previousButton = new JButton("Previous");
@@ -60,7 +61,7 @@ class MyFrame extends JFrame {
                     // ResultSet에서 데이터를 읽어와 각 텍스트 필드에 설정
                     id.setText("" + rs.getInt("book_id"));
                     title.setText("" + rs.getString("title"));
-                    publisher.setText("" + rs.getString("publisher"));
+                    p.setText("" + rs.getString("publisher"));
                     year.setText("" + rs.getString("year"));
                     price.setText("" + rs.getInt("price"));
                 } catch (SQLException e) {
@@ -78,7 +79,7 @@ class MyFrame extends JFrame {
                     // ResultSet에서 데이터를 읽어와 각 텍스트 필드에 설정
                     id.setText("" + rs.getInt("book_id"));
                     title.setText("" + rs.getString("title"));
-                    publisher.setText("" + rs.getString("publisher"));
+                    p.setText("" + rs.getString("publisher"));
                     year.setText("" + rs.getString("year"));
                     price.setText("" + rs.getInt("price"));
                 } catch (SQLException e) {
@@ -90,11 +91,10 @@ class MyFrame extends JFrame {
         // Insert, Delete, Search, Clear 버튼 추가
         insertButton = new JButton("Insert");
         deleteButton = new JButton("Delete");
-
         searchButton = new JButton("Search");
         searchButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                String searchKeyword = search.getText();
+                String searchKeyword = author.getText();
                 try {
                     // 출판사를 기준으로 LIKE 연산자를 사용하여 검색하는 쿼리
                     String query = "SELECT * FROM books WHERE publisher LIKE '%" + searchKeyword + "%'";
@@ -105,7 +105,7 @@ class MyFrame extends JFrame {
                         // 검색 결과가 있다면 각 텍스트 필드에 설정
                         id.setText("" + searchResult.getInt("book_id"));
                         title.setText("" + searchResult.getString("title"));
-                        publisher.setText("" + searchResult.getString("publisher"));
+                        p.setText("" + searchResult.getString("publisher"));
                         year.setText("" + searchResult.getString("year"));
                         price.setText("" + searchResult.getInt("price"));
                     } else {
@@ -133,9 +133,9 @@ class MyFrame extends JFrame {
         setVisible(true);
     }
 
-    // 데이터베이스 연결을 수행하는 메서드
+ // 데이터베이스 연결을 수행하는 메서드
     public static Connection makeConnection() {
-        String url = "jdbc:mysql://localhost:3306/book_db";
+        String url = "jdbc:mysql://localhost:3306/book_db"; // 수정된 부분
         String user = "root";
         String password = "";
         Connection con = null;
@@ -156,8 +156,8 @@ class MyFrame extends JFrame {
         return con;
     }
 
-    // MyFrame 클래스의 main 메서드
+    // ConnectionDatabase 클래스의 main 메서드
     public static void main(String[] args) throws SQLException {
-        new MyFrame();
+        new Notice();
     }
 }

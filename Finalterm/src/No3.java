@@ -3,10 +3,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SQLJava {
+public class No3 {
     // 데이터베이스 연결 메서드
     public static Connection makeConnection() {
-        String url = "jdbc:mysql://localhost:3306/book_db";
+        String url = "jdbc:mysql://localhost:3306/Duksung";
         String id = "root";
         String password = "";
         Connection con = null;
@@ -28,14 +28,14 @@ public class SQLJava {
         return con;
     }
 
-    // 책 추가 메서드
-    private static void addBook(String title, String publisher, String year, int price) {
+    // 학생 추가 메서드
+    private static void addStudent(int stuId, String name, String tel, String dept) {
         Connection con = makeConnection(); // 데이터베이스 연결
 
         try {
             Statement stmt = con.createStatement();
-            String query = "INSERT INTO books(title, publisher, year, price) VALUES " +
-                           "('" + title + "', '" + publisher + "', '" + year + "', '" + price + "')";
+            String query = "INSERT INTO Stuednt(stuId, name, tel, dept) VALUES " +
+                           "('" + stuId + "', '" + name + "', '" + tel + "', '" + dept + "')";
 
             System.out.println(query);
             int i = stmt.executeUpdate(query); // SQL 쿼리 실행
@@ -59,7 +59,11 @@ public class SQLJava {
     }
 
     public static void main(String[] args) throws SQLException {
-        // 메인 메서드에서 책 추가를 호출합니다.
-        addBook("Artificial Intelligence", "Addison Wesley", "2002", 35000);
+        // 메인 메서드에서 학생 추가를 호출합니다.
+        addStudent(2022001, "Minji lee", "000-0000-0001", "Cyber Security");
+        addStudent(2022002, "Hanni park", "000-0000-0002", "Computer");
+        addStudent(2022003, "Danielle chung", "000-0000-0003", "IT Media");
+        addStudent(202004, "Hyein choi", "000-0000-0004", "Software");
+        
     }
 }
